@@ -23,29 +23,18 @@ which is sort of a pain in SVG.
     </table>
 
     <hr>
+    <textarea style="width:80%; height: 150px;" id="svgInput"></textarea>
+    <hr>
+    <textarea style="width:80%; height: 150px;" id="svgOutput"></textarea>
+    <hr>
     <address><a href="mailto:mike@mtcc.com">Michael Thomas</a></address>
-<script type=text/javascript src=http://mtcc.com/site/jscanvas.js></script>
+<script type=text/javascript src=jscanvas.js></script>
 <script type=text/javascript src=http://mtcc.com/site/rgbcolor.js></script>
 <script type=text/javascript src=http://mtcc.com/site/canvg.js></script>
 <script type=text/javascript>
 
-jsCanvas.ajax = function (url) {
-    var AJAX;
-    // make certain we get freshest
-    url += '?cb='+Math.random ();
-    if(window.XMLHttpRequest){AJAX=new XMLHttpRequest();}
-    else{AJAX=new ActiveXObject('Microsoft.XMLHTTP');}
-    if(AJAX){
-	AJAX.open('GET',url,false);
-	AJAX.send(null);
-	return AJAX.responseText;
-    }
-    return null;
-};
-
 jsCanvas.test = function () {
-    var el = document.getElementById ('infile');
-    var svg = jsCanvas.ajax (el.value);
+    var svg = document.getElementById('svgInput').value;
     ycanvas = document.getElementById ('ycanvas');
     // if you specify a width and height, it will scale it at compile time.
     // generally you probably want to generate it at normal scale, and scale it
@@ -93,13 +82,10 @@ jsCanvas.test = function () {
 				val = 'rgba(0, 0, 255, 1)';
 			    ctx [key] = val;
 			};
-			// all set up, render away...
-			cantest.render ();
-                        // paint up the object source
-		        var el = document.getElementById ('source');
-		        el.innerHTML = '<pre>'+xcanvas.toString ()+'</pre>';
-		    });
-}
+
+            document.getElementById('svgOutput').value = xcanvas.toString();
+    });
+};
 
 </script>
 <img id="pattern" src=http://mtcc.com/site/imgs/davidmatblack.png style="display:none">
