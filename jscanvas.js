@@ -243,10 +243,10 @@ jsContext2d.prototype.emitFunc = function (fn, args, fnprefix) {
 	var arg = args [i];
 	switch (typeof arg) {
 	case 'number':
-	    argstr += arg.toFixed(2) + ',';
+	    argstr += arg.toFixed(2) + ', ';   //'F * scaleFactor, ';
 	    break;
 	case 'string':
-	    argstr += '"' + this.slashify (arg) +'"' + ',';
+	    argstr += '"' + this.slashify (arg) +'"' + ', ';
 	    break;
 	default:
 	    if (arg.tagName == 'IMG') {		// should prolly check to see if it's a DOM object too.
@@ -269,10 +269,11 @@ jsContext2d.prototype.emitFunc = function (fn, args, fnprefix) {
 	this.output += beforestr;
     if (fnprefix)
 	this.output += fnprefix;
-    this.output += 'ctx.'+fn + '(';
+    //this.output += 'ctx.'+fn + '(';
     if (argstr.length)
 	this.output += argstr.substr (0, argstr.length-1);
-    this.output += ');\n';
+    //this.output += ');\n';
+    this.output += ' // ' + fn + '\n';
     // now execute it in the real canvas
     return this.canvas.real2dContext [fn].apply (this.canvas.real2dContext, args);
 };
